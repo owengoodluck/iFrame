@@ -1,0 +1,33 @@
+Configuration:
+  status: warn
+  name: YAMLConfigTest
+  properties:
+    property:
+      name: filename
+      value: target/logs/my-app.log
+  thresholdFilter:
+    level: debug
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+    File:
+      name: File
+      fileName: ${filename}
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+
+  Loggers:
+    logger:
+      -
+        name: com.owen
+        level: info
+        additivity: true
+        AppenderRef:
+          ref: File
+
+    Root:
+      level: info
+      AppenderRef:
+        ref: STDOUT
