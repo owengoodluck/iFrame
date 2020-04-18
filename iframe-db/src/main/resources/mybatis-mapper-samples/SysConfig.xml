@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xseagull.boxing.features.dao.SysConfigDao">
+	
+	<!--查询配置选项 -->
+	<select id="findConfig" resultType="SysConfig">
+		SELECT id, item_key as itemKey, item_value as itemValue, remark FROM sys_config
+	</select>
+	
+	<!-- 添加配置选项-->
+	<insert id="insertConfig" parameterType="SysConfig">
+        INSERT INTO sys_config (item_key,item_value,create_time,update_time,remark) VALUES(#{itemKey},#{itemValue},now(),now(),#{remark})
+    </insert>
+    
+    <!-- 分页查询配置选项 -->
+	<select id="queryConfigByPage" resultType="SysConfig">
+		SELECT id, item_key as itemKey, item_value as itemValue, remark FROM sys_config
+		<where>
+			<if test="itemKey != null and itemKey != ''">
+				item_key LIKE CONCAT('%',#{itemKey},'%')
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据key查询配置选项 -->
+	<select id="queryConfigByItemKey" resultType="SysConfig">
+		SELECT id, item_key as itemKey, item_value as itemValue, remark FROM sys_config
+		<where>
+			<if test="itemKey != null and itemKey != ''">
+				item_key = #{itemKey}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 更新配置选项 -->
+	<update id="updateConfig" parameterType="SysConfig">
+		UPDATE sys_config
+		<set>
+			update_time = now(),
+			<if test="itemKey != null and itemKey !=''">
+				item_key = #{itemKey},
+			</if>
+			<if test="itemValue != null and itemValue !=''">
+				item_value = #{itemValue},
+			</if>
+			<if test="remark != null and remark !=''">
+				remark = #{remark},
+			</if>
+
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<!--删除配置选项  -->
+	<delete id="deleteConfig" parameterType="string">
+        DELETE FROM sys_config
+        <where>
+			id = #{id}
+		</where>
+    </delete>
+
+
+</mapper>
