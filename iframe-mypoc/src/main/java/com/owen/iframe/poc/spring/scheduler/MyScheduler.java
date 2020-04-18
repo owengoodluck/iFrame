@@ -30,7 +30,7 @@ public class MyScheduler {
     }
 
     //fixedDelay 的间隔是前次任务的结束与下次任务的开始，也就是上一次执行完成后多少毫秒后执行。
-    @Scheduled(fixedDelay = 2000)
+//    @Scheduled(fixedDelay = 2000)
     protected void fixedDelayTask() {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm:ss");
         System.out.println("fixedDelayTask 当前时间："+simpleDateFormat.format(new Date()));
@@ -42,7 +42,7 @@ public class MyScheduler {
     }
 
     //fixedRate 两次执行任务时间间隔是任务的开始点，也就是上一次执行开始多少毫秒后执行。
-    @Scheduled(fixedRate = 3000)
+//    @Scheduled(fixedRate = 3000)
     @Async
     protected void fixedRateTask() {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm:ss");
